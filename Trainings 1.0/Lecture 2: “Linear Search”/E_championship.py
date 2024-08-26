@@ -42,3 +42,33 @@ E. Чемпионат по метанию коровьих лепешек
 который удовлетворяет, описанным выше условиям, выведите число 0.
 """
 
+
+def find_max_place(n, throws):
+    candidates = []
+    if throws:
+        index = throws.index(max(throws))
+
+    # Поиск кандидатов на роль Василия
+    for i in range(n - 1):
+        if throws[i] % 10 == 5 and throws[i + 1] < throws[i] and index < i:
+            candidates.append(i)
+
+    # Если кандидатов нет, выводим 0
+    if not candidates:
+        return 0
+
+    # Находим самого дальнего кандидата
+    max_throw = max(throws[i] for i in candidates)
+
+    # Считаем место Василия
+    place = 1 + sum(1 for throw in throws if throw > max_throw)
+
+    return place
+
+
+# Чтение входных данных
+n = int(input())
+throws = list(map(int, input().split()))
+
+# Вывод результата
+print(find_max_place(n, throws))
