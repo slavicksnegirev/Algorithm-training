@@ -17,25 +17,7 @@ I. Полиглоты
 языков. Затем - количество языков, которые знает хотя бы один школьник, на следующих строках - список таких языков.
 """
 
-# TODO доделать
-
-all_languages = set()
-special_languages = set()
-tmp_set = set()
-
-N = int(input())
-for i in range(N):
-    M = int(input())
-    for j in range(M):
-        language = input()
-        if i == 0:
-            special_languages.add(language)
-        else:
-            if not :
-                special_languages.discard(language)
-        all_languages.add(language)
-
-print(len(special_languages))
-print(*special_languages, sep="\n")
-print(len(all_languages))
-print(*all_languages, sep="\n")
+students = [{input() for j in range(int(input()))} for i in range(int(input()))]
+known_by_everyone, known_by_someone = set.intersection(*students), set.union(*students)
+print(len(known_by_everyone), *sorted(known_by_everyone), sep='\n')
+print(len(known_by_someone), *sorted(known_by_someone), sep='\n')
