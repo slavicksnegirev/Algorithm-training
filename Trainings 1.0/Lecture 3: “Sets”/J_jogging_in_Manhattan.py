@@ -32,6 +32,87 @@ m пар чисел — координаты точек. Точки можно �
 
 Гарантируется, что навигатор исправен и что существует по крайней мере одна точка, в которой может находиться Миша.
 """
+import random
 
-t, d, n = map(int, input().split())
 
+def extend(rect, d):
+    minPlus, maxPlus, minMinus, maxMinus = rect
+    return [minPlus - d, maxPlus + d, minMinus - d, maxMinus + d]
+
+
+def intersect(rect1, rect2):
+    ans = [max(rect1[0], rect2[0]), min(rect1[1], rect2[1]), max(rect1[2], rect2[2]), min(rect1[3], rect2[3])]
+    return ans
+
+
+def get_set(set_xy, tuple_xy, delta):
+    x, y = tuple_xy
+    for i in range(1, delta + 1):
+        set_xy.add((x, y + i))
+        set_xy.add((x + i, y))
+        set_xy.add((x, y - i))
+        set_xy.add((x - i, y))
+        for j in range(i):
+            set_xy.add((x + j, y + i - j))
+            set_xy.add((x + i - j, y - j))
+            set_xy.add((x - j, y - i + j))
+            set_xy.add((x - i + j, y + j))
+
+
+# t, d, n = map(int, input().split())
+
+# tuple_prev = tuple()
+# tuple_last = (0, 0)
+
+# for i in range(n):
+#     x, y = map(int, input().split())
+#     tuple_prev = tuple_last
+#     tuple_last = (x, y)
+
+# set_prev = {tuple_prev}
+# set_last = {tuple_last}
+# result = set()
+
+# get_set(set_prev, tuple_prev, t + d)
+# get_set(set_last, tuple_last, d)
+
+# set_prev = set_prev.intersection(set_last)
+
+# for item in set_prev:
+#     x, y = item
+#     if abs(x) + abs(y) <= t * n:
+#         result.add((x, y))
+
+# print(len(result))
+# for item in sorted(result):
+#     print(*item)
+
+
+while True:
+    t = random.randint(1, 100)
+    d = random.randint(1, 100)
+    n = random.randint(1, 100)
+
+    # t, d, n = map(int, input().split())
+    posRect = (0, 0, 0, 0)
+
+    for _ in range(n):
+        posRect = extend(posRect, t)
+        # navX, navY = map(int, input().split())
+        navX = random.randint(-100, 100)
+        navY = random.randint(-100, 100)
+        
+        navRect = extend((navX + navY, navX + navY, navX - navY, navX - navY), d)
+        posRect = intersect(posRect, navRect)
+    points = []
+    for xPlusY in range(posRect[0], posRect[1] + 1):
+        for xMinusY in range(posRect[2], posRect[3] + 1):
+            if (xPlusY + xMinusY) % 2 == 0:
+                x = (xPlusY + xMinusY) // 2
+                y = xPlusY - x
+                points.append((x, y))
+
+
+    # print(len(points))
+    # for point in points:
+    #     print(*point)
