@@ -32,6 +32,7 @@ m пар чисел — координаты точек. Точки можно �
 
 Гарантируется, что навигатор исправен и что существует по крайней мере одна точка, в которой может находиться Миша.
 """
+# TODO доработать неисправный случай
 import random
 
 
@@ -101,7 +102,6 @@ while True:
         # navX, navY = map(int, input().split())
         navX = random.randint(-100, 100)
         navY = random.randint(-100, 100)
-        
         navRect = extend((navX + navY, navX + navY, navX - navY, navX - navY), d)
         posRect = intersect(posRect, navRect)
     points = []
@@ -111,7 +111,6 @@ while True:
                 x = (xPlusY + xMinusY) // 2
                 y = xPlusY - x
                 points.append((x, y))
-
 
     # print(len(points))
     # for point in points:
