@@ -114,4 +114,4 @@ while True:
 
     # print(len(points))
     # for point in points:
-    #     print(*point)
+    #     print(*point)оритмы
