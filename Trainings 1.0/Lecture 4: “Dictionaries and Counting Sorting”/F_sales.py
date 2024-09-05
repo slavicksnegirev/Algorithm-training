@@ -20,7 +20,7 @@ F. Продажи
 названия каждого товара выведите количество единиц товара, приобретенных данным покупателем. Информация о каждом
 товаре выводится в отдельной строке.
 """
-# TODO доделать
+
 sales = {}
 
 with open("Trainings 1.0/Lecture 4: “Dictionaries and Counting Sorting”/input.txt", "r", encoding="utf8") as file:
@@ -30,7 +30,12 @@ with open("Trainings 1.0/Lecture 4: “Dictionaries and Counting Sorting”/inpu
             name, product, count = line.split()
             if name not in sales:
                 sales[name] = {product: int(count)}
-            elif product not in name:
-                sales.update({name: {product: int(count)}})
+            elif product not in sales[name]:
+                sales[name].update({product: int(count)})
+            else:
+                sales[name][product] += int(count)
 
-print(sales)
+for n, d in sorted(sales.items()):
+    print(n + ":")
+    for k, v in sorted(d.items()):
+        print(k, v)
